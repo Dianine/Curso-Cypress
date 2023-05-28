@@ -26,7 +26,23 @@ describe('Elelemntos basicos', () =>{
 
   it.only('TextFilds', () => {
     cy.get('#formNome').type('Dianine')
-    cy.get('[data-cy="dataSobrenome"]').type('Costa Viana')
+    cy.get('#formNome').should('have.value','Dianine')
+
+    cy.get('[data-cy="dataSobrenome"]').type('Costa Viana {backspace} {backspace}')
+    cy.get('[data-cy="dataSobrenome"]').should('have.value', 'Costa Viana')
+
+    cy.get('#elementosForm\\:sugestoes')
+      .type('Essa é apenas uma frase para testar o texArea com cypress')
+      .should('have.value', 'Essa é apenas uma frase para testar o texArea com cypress')
+
+    cy.get('#tabelaUsuarios > :nth-child(2) > :nth-child(1) > :nth-child(6) > input').type('Banco de dados')
+      .should('have.value', 'Banco de dados')
+
+      cy.get('#elementosForm\\:sugestoes')
+        .clear()
+        .type('Erro{selectall}acerto', {delay: 100})
+        .should('have.value', 'acerto')
+      
   })
 })
 
